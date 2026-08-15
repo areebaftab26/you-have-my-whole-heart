@@ -1,0 +1,601 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>For Sameera</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,600;1,500;1,600&family=Parisienne&family=Karla:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --royal:#7c1d4c;
+    --royal-deep:#4a1030;
+    --rose:#e2789e;
+    --rose-light:#f6c9d8;
+    --blush:#fdeef2;
+    --white-rose:#fffaf8;
+    --gold:#c9a13b;
+    --gold-light:#e6cd8c;
+    --ink:#3a1030;
+    --ink-soft:#6b3a53;
+  }
+
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html{scroll-behavior:smooth;}
+
+  body{
+    font-family:'Karla', sans-serif;
+    color:var(--ink);
+    background:var(--blush);
+    overflow-x:hidden;
+  }
+
+  h1,h2,h3,.display{ font-family:'Playfair Display', serif; font-weight:600; }
+  .script{ font-family:'Parisienne', cursive; }
+  a{ color:inherit; }
+
+  /* ---------- AMBIENT BUTTERFLIES (fixed, page-wide) ---------- */
+  .butterfly-field{
+    position:fixed; inset:0;
+    pointer-events:none;
+    z-index:5;
+    overflow:hidden;
+  }
+
+  .butterfly{
+    position:absolute;
+    width:26px; height:26px;
+    opacity:.75;
+    animation: flutter-drift linear infinite;
+    transform-origin:center;
+  }
+
+  .butterfly svg{ width:100%; height:100%; display:block; animation: wing-beat .7s ease-in-out infinite alternate; transform-origin: 50% 50%; }
+
+  @keyframes wing-beat{
+    from{ transform:scaleX(1); }
+    to{ transform:scaleX(.55); }
+  }
+
+  @keyframes flutter-drift{
+    0%{ transform:translate(0,0) rotate(0deg); }
+    25%{ transform:translate(40px,-60px) rotate(8deg); }
+    50%{ transform:translate(-20px,-130px) rotate(-6deg); }
+    75%{ transform:translate(30px,-200px) rotate(5deg); }
+    100%{ transform:translate(0,-280px) rotate(0deg); }
+  }
+
+  /* ---------- ROSE + BOW ORNAMENTS ---------- */
+  .rose-corner{
+    position:absolute;
+    width:70px; height:70px;
+    opacity:.9;
+    pointer-events:none;
+  }
+  .rose-corner.tl{ top:-14px; left:-14px; }
+  .rose-corner.br{ bottom:-14px; right:-14px; transform:rotate(180deg); }
+
+  .bow-divider{
+    display:flex; justify-content:center; margin: 0 0 1.2rem;
+  }
+  .bow-divider svg{ width:54px; height:auto; }
+
+  /* ---------- HERO ---------- */
+  .sky{
+    position:relative;
+    background:
+      radial-gradient(ellipse at 50% 0%, var(--rose-light) 0%, var(--blush) 55%, var(--blush) 100%);
+    overflow:hidden;
+  }
+
+  .sky.royal-deep{
+    background: radial-gradient(ellipse at 50% -10%, var(--royal), var(--royal-deep) 60%);
+  }
+
+  .petal-scatter{
+    position:absolute; inset:0;
+    pointer-events:none;
+    background-image:
+      radial-gradient(3px 3px at 15% 20%, rgba(255,255,255,.55), transparent),
+      radial-gradient(2.5px 2.5px at 80% 15%, rgba(255,255,255,.4), transparent),
+      radial-gradient(2px 2px at 60% 60%, rgba(255,255,255,.45), transparent),
+      radial-gradient(2.5px 2.5px at 30% 75%, rgba(255,255,255,.4), transparent),
+      radial-gradient(2px 2px at 90% 80%, rgba(255,255,255,.4), transparent);
+  }
+
+  .hero{
+    min-height:100svh;
+    display:flex; flex-direction:column; align-items:center; justify-content:center;
+    text-align:center;
+    padding: 8vh 6vw;
+    position:relative;
+  }
+
+  .hero .bow-top svg{ width:64px; margin-bottom:1rem; }
+
+  .eyebrow{
+    font-family:'Parisienne', cursive;
+    font-size:clamp(1.6rem, 3vw, 2.1rem);
+    color:var(--royal);
+    margin-bottom:.2rem;
+  }
+  .sky.royal-deep .eyebrow{ color:var(--gold-light); }
+
+  .hero h1{
+    font-style:italic;
+    font-weight:600;
+    font-size:clamp(3rem, 9vw, 6.5rem);
+    color:var(--royal);
+    line-height:1.05;
+  }
+  .sky.royal-deep h1{ color:var(--white-rose); }
+
+  .hero p{
+    margin-top:1.3rem;
+    max-width:34ch;
+    color:var(--ink-soft);
+    font-size:clamp(1rem, 2vw, 1.15rem);
+  }
+  .sky.royal-deep p{ color:rgba(255,250,248,.8); }
+
+  .scroll-cue{
+    margin-top:4rem;
+    color:var(--rose);
+    font-size:.8rem;
+    letter-spacing:.18em;
+    text-transform:uppercase;
+    animation:bob 2.4s ease-in-out infinite;
+  }
+  @keyframes bob{ 0%,100%{transform:translateY(0);} 50%{transform:translateY(8px);} }
+
+  /* ---------- SECTION SHELL ---------- */
+  section{ padding: 7rem 6vw; position:relative; z-index:2; }
+  .section-inner{ max-width:760px; margin:0 auto; }
+  .kicker{ font-family:'Parisienne', cursive; font-size:1.5rem; color:var(--royal); }
+
+  /* ---------- THE LETTER ---------- */
+  .letter-wrap{ background:var(--blush); }
+
+  .letter-card{
+    background:var(--white-rose);
+    border-radius:6px;
+    padding:clamp(2.2rem, 6vw, 4.2rem);
+    box-shadow: 0 30px 60px -30px rgba(122,29,76,.35);
+    position:relative;
+    border:1px solid var(--rose-light);
+  }
+
+  .letter-card h2{
+    font-size:clamp(1.9rem, 4vw, 2.7rem);
+    font-style:italic;
+    color:var(--royal);
+    margin-bottom:1.5rem;
+  }
+
+  .letter-card p{
+    font-size:1.08rem;
+    line-height:1.9;
+    color:var(--ink);
+    margin-bottom:1.2rem;
+  }
+
+  .signature{
+    font-family:'Parisienne', cursive;
+    font-size:2.1rem;
+    color:var(--royal);
+    margin-top:1.2rem;
+  }
+
+  /* ---------- REASONS ---------- */
+  .reasons-wrap{ background:linear-gradient(180deg, var(--blush), var(--rose-light) 120%); text-align:center; }
+
+  .reasons-wrap h2{
+    font-size:clamp(2rem,4vw,2.9rem);
+    font-style:italic;
+    color:var(--royal);
+    margin:.3rem 0 2.5rem;
+  }
+
+  .reason-card{
+    background: var(--white-rose);
+    border: 1px solid var(--gold-light);
+    border-radius:16px;
+    padding:2.6rem 2rem;
+    min-height:140px;
+    display:flex; align-items:center; justify-content:center;
+    font-size:clamp(1.15rem, 2.4vw, 1.4rem);
+    font-family:'Playfair Display', serif;
+    font-style:italic;
+    color:var(--royal);
+    box-shadow:0 20px 45px -25px rgba(122,29,76,.4);
+    transition:opacity .25s ease, transform .25s ease;
+  }
+
+  .reason-card.swap{ opacity:0; transform:translateY(6px); }
+
+  .reason-btn{
+    margin-top:2rem;
+    font-family:'Karla', sans-serif;
+    font-weight:700;
+    font-size:.9rem;
+    letter-spacing:.05em;
+    text-transform:uppercase;
+    background:var(--royal);
+    color:var(--white-rose);
+    border:none;
+    padding:.9rem 1.9rem;
+    border-radius:100px;
+    cursor:pointer;
+    transition:background .2s ease, transform .2s ease;
+  }
+  .reason-btn:hover{ background:var(--royal-deep); transform:translateY(-2px); }
+  .reason-btn:focus-visible{ outline:3px solid var(--gold); outline-offset:3px; }
+
+  .reason-count{ margin-top:1rem; font-size:.85rem; color:var(--ink-soft); letter-spacing:.05em; }
+
+  /* ---------- MEMORIES / PHOTOS ---------- */
+  .memories-wrap{ background: var(--royal-deep); text-align:center; }
+
+  .memories-wrap h2{ color:var(--white-rose); font-style:italic; font-size:clamp(2rem,4vw,2.9rem); margin-bottom:.5rem; }
+  .memories-wrap .kicker{ color:var(--gold-light); }
+
+  .polaroid-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit, minmax(180px, 1fr));
+    gap:1.8rem;
+    margin-top:2.8rem;
+  }
+
+  .polaroid{
+    background:var(--white-rose);
+    padding:.8rem .8rem 1.5rem;
+    border-radius:4px;
+    box-shadow:0 20px 40px -20px rgba(0,0,0,.55);
+    transform:rotate(var(--r, -2deg));
+    transition:transform .25s ease;
+    position:relative;
+  }
+  .polaroid:nth-child(2n){ --r:2deg; }
+  .polaroid:nth-child(3n){ --r:-3deg; }
+  .polaroid:hover{ transform:rotate(0deg) translateY(-4px); }
+
+  .polaroid .ribbon-corner{ position:absolute; top:-10px; right:-10px; width:38px; height:38px; }
+
+  .polaroid .frame{
+    aspect-ratio:1/1;
+    border-radius:2px;
+    background: linear-gradient(135deg, var(--rose-light), var(--blush));
+    display:flex; align-items:center; justify-content:center;
+    color:var(--royal);
+    font-size:.8rem;
+    text-align:center;
+    padding:1rem;
+  }
+
+  .polaroid figcaption{
+    font-family:'Parisienne', cursive;
+    font-size:1.3rem;
+    margin-top:.7rem;
+    color:var(--ink-soft);
+  }
+
+  /* ---------- GIFT BOX (signature interactive) ---------- */
+  .gift-section{ text-align:center; padding-bottom:9rem; }
+  .gift-section .kicker{ color:var(--gold-light); }
+
+  .gift-section h2{
+    color:var(--white-rose);
+    font-style:italic;
+    font-size:clamp(2rem,4vw,2.9rem);
+    margin-bottom:.6rem;
+  }
+
+  .gift-section > p{
+    color:rgba(255,250,248,.75);
+    max-width:38ch;
+    margin:0 auto 3rem;
+  }
+
+  .gift-stage{
+    position:relative;
+    width:220px;
+    margin:0 auto;
+    cursor:pointer;
+    -webkit-tap-highlight-color:transparent;
+  }
+
+  .gift-stage svg{ width:100%; display:block; overflow:visible; }
+  .gift-stage:hover .lid, .gift-stage:focus-visible .lid{ transform:translateY(-6px) rotate(-2deg); }
+  .lid{ transition: transform .3s ease; transform-origin: 50% 100%; }
+
+  .note-popup{
+    position:absolute;
+    left:50%;
+    bottom:100%;
+    transform:translate(-50%, 10px);
+    width:min(260px, 70vw);
+    background:var(--white-rose);
+    color:var(--royal);
+    font-family:'Playfair Display', serif;
+    font-style:italic;
+    font-size:1.05rem;
+    line-height:1.55;
+    padding:1.2rem 1.4rem;
+    border-radius:10px;
+    border:1px solid var(--gold-light);
+    box-shadow:0 20px 40px -15px rgba(0,0,0,.5);
+    opacity:0;
+    pointer-events:none;
+    transition:opacity .35s ease, transform .35s ease;
+    margin-bottom:1.2rem;
+  }
+
+  .note-popup::after{
+    content:"";
+    position:absolute;
+    top:100%; left:50%;
+    transform:translateX(-50%);
+    border:8px solid transparent;
+    border-top-color:var(--white-rose);
+  }
+
+  .note-popup.show{ opacity:1; transform:translate(-50%, -8px); }
+
+  .gift-hint{ margin-top:1.6rem; font-size:.85rem; color:rgba(255,250,248,.6); letter-spacing:.05em; }
+
+  /* ---------- FOOTER ---------- */
+  footer{
+    background:var(--royal-deep);
+    text-align:center;
+    padding:5rem 6vw 4rem;
+    position:relative;
+    z-index:2;
+  }
+
+  footer .script{ font-size:2rem; color:var(--gold-light); }
+  footer p{ color:rgba(255,250,248,.55); margin-top:1rem; font-size:.85rem; }
+  footer .bow-divider{ margin-bottom:1.6rem; }
+
+  /* ---------- MOTION / ACCESSIBILITY ---------- */
+  @media (prefers-reduced-motion: reduce){
+    *{ animation-duration:.001ms !important; animation-iteration-count:1 !important; transition-duration:.001ms !important; }
+  }
+  :focus-visible{ outline:3px solid var(--gold); outline-offset:2px; }
+</style>
+</head>
+<body>
+
+<!-- reusable SVG symbols -->
+<svg width="0" height="0" style="position:absolute">
+  <defs>
+    <symbol id="rose-icon" viewBox="0 0 100 100">
+      <circle cx="50" cy="52" r="20" fill="#fffaf8" stroke="#e2789e" stroke-width="1.5"/>
+      <circle cx="50" cy="52" r="13" fill="#fdeef2" stroke="#e2789e" stroke-width="1.2"/>
+      <circle cx="50" cy="52" r="6" fill="#f6c9d8" stroke="#c9a13b" stroke-width="1"/>
+      <path d="M50 52 C36 48, 30 60, 40 68" fill="none" stroke="#e2789e" stroke-width="1.2"/>
+      <path d="M50 52 C64 48, 70 60, 60 68" fill="none" stroke="#e2789e" stroke-width="1.2"/>
+      <path d="M46 78 Q50 70 54 78 Q52 86 46 78" fill="#93a878"/>
+      <line x1="50" y1="70" x2="50" y2="95" stroke="#7c1d4c" stroke-width="2"/>
+    </symbol>
+    <symbol id="bow-icon" viewBox="0 0 100 60">
+      <path d="M50 30 C50 30 20 8 8 20 C-2 30 15 46 50 30 Z" fill="#e2789e" stroke="#7c1d4c" stroke-width="2"/>
+      <path d="M50 30 C50 30 80 8 92 20 C102 30 85 46 50 30 Z" fill="#e2789e" stroke="#7c1d4c" stroke-width="2"/>
+      <circle cx="50" cy="30" r="8" fill="#c9a13b" stroke="#7c1d4c" stroke-width="1.5"/>
+      <path d="M46 36 L40 55 L48 50 Z" fill="#e2789e" stroke="#7c1d4c" stroke-width="1.5"/>
+      <path d="M54 36 L60 55 L52 50 Z" fill="#e2789e" stroke="#7c1d4c" stroke-width="1.5"/>
+    </symbol>
+    <symbol id="butterfly-icon" viewBox="0 0 60 50">
+      <path d="M30 25 C30 25 10 -5 2 10 C-6 25 15 35 30 25 Z" fill="#e2789e" opacity=".9"/>
+      <path d="M30 25 C30 25 50 -5 58 10 C66 25 45 35 30 25 Z" fill="#f6c9d8" opacity=".9"/>
+      <path d="M30 25 C30 25 12 45 5 40 C-2 35 15 27 30 25 Z" fill="#e2789e" opacity=".8"/>
+      <path d="M30 25 C30 25 48 45 55 40 C62 35 45 27 30 25 Z" fill="#f6c9d8" opacity=".8"/>
+      <line x1="30" y1="20" x2="30" y2="32" stroke="#7c1d4c" stroke-width="1.6"/>
+    </symbol>
+  </defs>
+</svg>
+
+<div class="butterfly-field" id="butterflyField"></div>
+
+  <!-- ============ HERO ============ -->
+  <div class="sky hero-wrap">
+    <div class="petal-scatter"></div>
+    <section class="hero">
+      <div class="bow-top"><svg viewBox="0 0 100 60"><use href="#bow-icon"/></svg></div>
+      <div class="eyebrow">a little something for</div>
+      <!-- EDIT: change the name below if you'd like a nickname instead -->
+      <h1>Sameera</h1>
+      <p>I know yesterday was heavy. This page isn't going to fix it — but I wanted you to have somewhere pretty to land for a few minutes and just feel loved.</p>
+      <div class="scroll-cue">keep scrolling ↓</div>
+    </section>
+  </div>
+
+  <!-- ============ THE LETTER ============ -->
+  <section class="letter-wrap">
+    <div class="section-inner">
+      <div class="bow-divider"><svg viewBox="0 0 100 60"><use href="#bow-icon"/></svg></div>
+      <div class="letter-card">
+        <svg class="rose-corner tl" viewBox="0 0 100 100"><use href="#rose-icon"/></svg>
+        <svg class="rose-corner br" viewBox="0 0 100 100"><use href="#rose-icon"/></svg>
+        <div class="kicker">a note, just for you</div>
+        <h2>Dear Sameera,</h2>
+        <!-- EDIT: replace this letter with your own words — this is the most important part -->
+        <p>I've been thinking about you since yesterday, and I just wanted to remind you of something you might be forgetting right now: you don't have to have it all figured out today. It's okay to feel however you're feeling — sad days don't mean anything is wrong with you, they just mean you're human, and you're allowed to have them.</p>
+        <p>What I do know for certain is that you are one of the kindest, funniest, most genuine people I've ever gotten to know, and being your friend is one of my favorite parts of my life. Whatever's weighing on you, you don't have to carry it alone — I'm right here, today and every day after.</p>
+        <p>So take a breath, scroll down a little further, and let me remind you of a few things.</p>
+        <div class="signature">— always in your corner</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ REASONS ============ -->
+  <section class="reasons-wrap">
+    <div class="section-inner">
+      <div class="kicker">just a few, out of many</div>
+      <h2>Reasons you're amazing</h2>
+      <div class="reason-card" id="reasonCard">Tap the button below to begin ✨</div>
+      <button class="reason-btn" id="reasonBtn" aria-live="polite">Give me a reason</button>
+      <div class="reason-count" id="reasonCount"></div>
+    </div>
+  </section>
+
+  <!-- ============ MEMORIES ============ -->
+  <section class="memories-wrap">
+    <div class="section-inner">
+      <div class="kicker">a few favorites</div>
+      <h2>Little memories</h2>
+      <!-- EDIT: replace each .frame div with <img src="your-photo.jpg" alt="..."> and update captions -->
+      <div class="polaroid-grid">
+        <figure class="polaroid">
+          <svg class="ribbon-corner" viewBox="0 0 100 60"><use href="#bow-icon"/></svg>
+          <div class="frame">add a photo here</div>
+          <figcaption>that one day we couldn't stop laughing</figcaption>
+        </figure>
+        <figure class="polaroid">
+          <svg class="ribbon-corner" viewBox="0 0 100 60"><use href="#bow-icon"/></svg>
+          <div class="frame">add a photo here</div>
+          <figcaption>our favorite spot</figcaption>
+        </figure>
+        <figure class="polaroid">
+          <svg class="ribbon-corner" viewBox="0 0 100 60"><use href="#bow-icon"/></svg>
+          <div class="frame">add a photo here</div>
+          <figcaption>this needs no caption</figcaption>
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ GIFT BOX OF GOOD VIBES ============ -->
+  <div class="sky royal-deep gift-wrap">
+    <div class="petal-scatter"></div>
+    <section class="gift-section">
+      <div class="kicker">untie the bow</div>
+      <h2>A little box of sweetness</h2>
+      <p>Tap the box. Every time, a butterfly flies out carrying something true.</p>
+
+      <div class="gift-stage" id="giftStage" role="button" tabindex="0" aria-label="Tap the gift box to release a butterfly with an encouraging note">
+        <div class="note-popup" id="notePopup"></div>
+        <svg viewBox="0 0 200 200" fill="none">
+          <ellipse cx="100" cy="185" rx="60" ry="8" fill="rgba(0,0,0,.25)"/>
+          <rect x="45" y="100" width="110" height="75" rx="4" fill="#fffaf8" stroke="#c9a13b" stroke-width="2.5"/>
+          <rect x="90" y="100" width="20" height="75" fill="#e2789e"/>
+          <g class="lid">
+            <rect x="40" y="80" width="120" height="26" rx="4" fill="#f6c9d8" stroke="#c9a13b" stroke-width="2.5"/>
+            <rect x="90" y="80" width="20" height="26" fill="#e2789e"/>
+            <use href="#bow-icon" x="55" y="48" width="90" height="54"/>
+          </g>
+        </svg>
+      </div>
+      <div class="gift-hint" id="giftHint">tap the box</div>
+    </section>
+  </div>
+
+  <!-- ============ FOOTER ============ -->
+  <footer>
+    <div class="bow-divider"><svg viewBox="0 0 100 60"><use href="#bow-icon"/></svg></div>
+    <div class="script">you are so, so loved, Sameera</div>
+    <!-- EDIT: sign off however feels like you -->
+    <p>made with care, just for you</p>
+  </footer>
+
+<script>
+  // ---------- reasons ----------
+  // EDIT: replace/add your own reasons — inside jokes, specific memories, real things you admire
+  const reasons = [
+    "You make people feel safe just by being around them.",
+    "You remember the little things other people forget.",
+    "Your laugh is genuinely one of the best sounds I know.",
+    "You're stronger than you give yourself credit for.",
+    "You show up for the people you love, every single time.",
+    "You have impeccable taste and I will not be taking questions.",
+    "You make ordinary days feel like an event.",
+    "You're allowed to rest. You don't have to earn it.",
+    "You've gotten through 100% of your hard days so far.",
+    "The world genuinely feels warmer with you in it.",
+    "You give the best advice, even when you don't believe it about yourself.",
+    "You're my favorite person to send stupid memes to."
+  ];
+
+  let shown = [];
+  const reasonCard = document.getElementById('reasonCard');
+  const reasonBtn = document.getElementById('reasonBtn');
+  const reasonCount = document.getElementById('reasonCount');
+
+  function nextReason(){
+    if(shown.length === reasons.length) shown = [];
+    let idx;
+    do { idx = Math.floor(Math.random()*reasons.length); } while(shown.includes(idx) && shown.length < reasons.length);
+    shown.push(idx);
+
+    reasonCard.classList.add('swap');
+    setTimeout(()=>{
+      reasonCard.textContent = reasons[idx];
+      reasonCard.classList.remove('swap');
+    }, 220);
+
+    reasonCount.textContent = shown.length < reasons.length
+      ? `${shown.length} of ${reasons.length} reasons found`
+      : `that's all of them — start over any time`;
+  }
+
+  reasonBtn.addEventListener('click', nextReason);
+
+  // ---------- gift box of good vibes ----------
+  // EDIT: swap these for personal encouraging notes / inside jokes
+  const notes = [
+    "you don't have to be okay right now. you just have to be.",
+    "someone out there is genuinely grateful you exist. it's me. hi.",
+    "this feeling is a visitor, not a resident.",
+    "you've survived every single one of your worst days.",
+    "it's okay to text me at 2am. i mean it.",
+    "you're doing better than you think you are.",
+    "small steps still count as moving forward.",
+    "i'm proud of you, even for the quiet, hard days."
+  ];
+
+  const giftStage = document.getElementById('giftStage');
+  const notePopup = document.getElementById('notePopup');
+  const giftHint = document.getElementById('giftHint');
+  let noteIdx = 0;
+
+  function releaseButterfly(){
+    const field = document.getElementById('butterflyField');
+    const rect = giftStage.getBoundingClientRect();
+    const f = document.createElement('div');
+    f.className = 'butterfly';
+    f.style.left = (rect.left + rect.width/2 - 13) + 'px';
+    f.style.top = (rect.top - 10) + 'px';
+    f.style.animation = 'flutter-drift 3.2s ease-out forwards';
+    f.innerHTML = '<svg viewBox="0 0 60 50"><use href="#butterfly-icon"/></svg>';
+    field.appendChild(f);
+    setTimeout(()=> f.remove(), 3200);
+
+    notePopup.textContent = notes[noteIdx % notes.length];
+    noteIdx++;
+    notePopup.classList.add('show');
+    giftHint.textContent = 'tap again for another';
+    clearTimeout(releaseButterfly._t);
+    releaseButterfly._t = setTimeout(()=> notePopup.classList.remove('show'), 4200);
+  }
+
+  giftStage.addEventListener('click', releaseButterfly);
+  giftStage.addEventListener('keydown', (e)=>{
+    if(e.key === 'Enter' || e.key === ' '){ e.preventDefault(); releaseButterfly(); }
+  });
+
+  // ---------- ambient page-wide butterflies ----------
+  const field = document.getElementById('butterflyField');
+  for(let i=0; i<7; i++){
+    const f = document.createElement('div');
+    f.className = 'butterfly';
+    f.style.left = (Math.random()*100) + '%';
+    f.style.top = (100 + Math.random()*400) + '%';
+    f.style.animationDuration = (14 + Math.random()*10) + 's';
+    f.style.animationDelay = (Math.random()*10) + 's';
+    f.innerHTML = '<svg viewBox="0 0 60 50"><use href="#butterfly-icon"/></svg>';
+    field.appendChild(f);
+  }
+</script>
+
+</body>
+</html>
